@@ -1,14 +1,13 @@
-import { PrismaClient } from '@prisma/client';
-const prisma = new PrismaClient();
+import express from 'express'
+import cors from "cors";
+import routes from './http/routes/'
 
-async function main() {
-    const allUsers = await prisma.user.findMany()
-    console.log(allUsers)
-}
-main()
-    .catch((e) => {
-        throw e
-    })
-    .finally(async () => {
-        await prisma.disconnect()
-    })
+const app = express();
+app.use(cors());
+app.use(express.json());
+app.use(routes);
+
+app.listen(3333, () => {
+    console.log("Server started on server 3333");
+});
+
